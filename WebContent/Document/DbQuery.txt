@@ -1,0 +1,48 @@
+Student Table
+===============
+
+create table student(student_id int NOT NULL AUTO_INCREMENT,
+first_name varchar(20),last_name varchar(20),email varchar(50),
+password varchar(20),created_by varchar(30),created_date DATE, 
+updated_by varchar(30),
+updated_date DATE,primary key student_id,email);
+
+
+CREATE SEQUENCE studid_seq START WITH     1 INCREMENT BY   1 NOCACHE NOCYCLE;
+
+insert into student_table values(author_seq.nextval,'shubham','tiwar','shivam@gmail.com','shivam','amit',sysdate,'ankit',sysdate);
+
+
+Table for Question..
+
+MCQ
+==========
+Ouestion Id
+question text
+ques option 1
+ques option 2
+ques option 3
+ques option 4
+
+question type  :
+1. MCQ
+2. TF 
+3. Fill in the blankss
+4. MMCQ ----> more than one correct ans..
+5. Eassey type question - passage
+
+
+create test
+
+District level annual test
+mcq, mmcq, tf
+
+total marks, obtained marks,
+
+test duration.....
+
+
+
+
+
+ 
