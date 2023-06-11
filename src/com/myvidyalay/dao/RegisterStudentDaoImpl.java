@@ -1,5 +1,9 @@
-package com.myvidyalay.dao;
+package com.myvidayalay.dao;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -9,20 +13,47 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
-import com.myvidyalay.modal.Student;
+import com.myvidayalay.modal.Student;
 
 public class RegisterStudentDaoImpl implements RegisterStudentDao {
 
 	@Override
 	public int registerStudent(Student student) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
+
+		String url = "";
+		String driver = "";
+		String user = "";
+		String password = "";
+		
+		try {
+			
+			Properties properties = new Properties();
+						
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			InputStream fis = classLoader.getResourceAsStream("applicationDb.properties");
+			
+			properties.load(fis);
+			
+			driver = properties.getProperty("driver");
+			url = properties.getProperty("url");
+			user = properties.getProperty("user");
+			password = properties.getProperty("password");
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		String INSERT_STUDENT = "INSERT INTO STUDENT_TABLE VALUES(studid_seq.nextval,?,?,?,?,?,?,?,?)";
 		// load driver class
-		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Class.forName(driver);
 
 		// create connection
-		Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "manager");
+		Connection connection = DriverManager.getConnection(url, user, password);
 
 		PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STUDENT);
 		preparedStatement.setString(1, student.getFirstName());
